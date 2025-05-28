@@ -1,0 +1,103 @@
+.container {
+    position: relative;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 50vh;
+    background-color: #ffffff;
+}
+
+.water-tank {
+    width: 100px;
+    height: 300px;
+    background-color: #ccc;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.water-level {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #1e90ff;
+    transition: height 0.5s ease;
+}
+
+.chartBox, .dataBox {
+    width: 80%;
+    height: 80%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#chartsContainer {
+    width: 25%;
+    height: 60vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    float: left;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.menu {
+    position: relative;
+    float: left;
+    justify-content: center;
+    align-content: center;
+    width: 10%; 
+    height: 90%;
+    text-align: center;
+    border: 1px solid #333;
+    margin-left: 5px;
+    background-color: #dbdbdb;
+}
+
+.barrier-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.barrier-base {
+    position: absolute;
+    bottom: 10%; 
+    left: 20%;
+    width: 50px;
+    height: 100px;
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.barrier-arm {
+    position: absolute;
+    bottom: calc(100% + 10px); 
+    left: 50%;
+    width: 200px;
+    height: 20px;
+    background-color: #808080; /* 빨간색에서 회색으로 변경 */
+    border-radius: 5px;
+    transform-origin: left center;
+    transform: rotate(0deg);
+    transition: transform 0.5s ease;
+}
