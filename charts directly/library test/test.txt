@@ -1,0 +1,106 @@
+class CustomChart {
+	constructor(canvas, dataPoints) {
+		this.canvas = canvas;
+		this.ctx = canvas.getContext("2d");
+		this.dataPoints = dataPoints;
+
+		// 축 기준점
+		this.originX = 50;
+		this.originY = 20;
+	}
+
+	Ox(x) {
+		return x;
+	}
+
+	Oy(y) {
+		return this.canvas.height - y;
+	}
+
+	drawLine(x1, y1, x2, y2) {
+		const ctx = this.ctx;
+		ctx.beginPath();
+		ctx.moveTo(this.Ox(x1), this.Oy(y1));
+		ctx.lineTo(this.Ox(x2), this.Oy(y2));
+		ctx.stroke();
+	}
+
+	drawAxesAndGrid() {
+		const ctx = this.ctx;
+		ctx.fillStyle = "#FFFFCC";
+		ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+		// X축, Y축
+		ctx.strokeStyle = "#000000";
+		this.drawLine(this.originX, this.originY, 700, this.originY);
+		this.drawLine(this.originX, this.originY, this.originX, 470);
+
+		// X축 눈금
+		for (let i = 0; i < 130; i++) {
+			let x = 5 * i + this.originX;
+			ctx.globalAlpha = 1;
+			ctx.strokeStyle = "#000000";
+			this.drawLine(x, this.originY - 3, x, this.originY + 3);
+
+			if (i % 5 === 0) {
+				ctx.strokeStyle = "#FF0000";
+				this.drawLine(x + 25, this.originY - 4, x + 25, this.originY + 4);
+				ctx.globalAlpha = 0.1;
+				this.drawLine(x + 25, this.originY + 4, x + 25, 470);
+				ctx.globalAlpha = 1;
+				ctx.fillStyle = "#000000";
+				ctx.font = "10px Arial";
+				ctx.fillText(`${i}`, x - 5, 475);
+			}
+		}
+
+		// Y축 눈금
+		for (let i = 0; i < 90; i++) {
+			let y = 5 * i + this.originY;
+			ctx.globalAlpha = 1;
+			ctx.strokeStyle = "#000000";
+			this.drawLine(this.originX - 3, y, this.originX + 3, y);
+
+			if (i % 5 === 0) {
+				ctx.strokeStyle = "#FF0000";
+				this.drawLine(this.originX - 4, y + 25, this.originX + 4, y + 25);
+				ctx.globalAlpha = 0.1;
+				this.drawLine(this.originX + 4, y + 25, 700, y + 25);
+				ctx.globalAlpha = 1;
+				ctx.fillStyle = "#000000";
+				ctx.font = "10px Arial";
+				ctx.fillText(`${i + 5}`, 33, this.Oy(y + 25) + 4);
+			}
+		}
+	}
+
+	drawChart() {
+		const ctx = this.ctx;
+		ctx.strokeStyle = "#0077cc";
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+
+		this.dataPoints.forEach((pt, i) => {
+			const px = this.Ox(pt.x);
+			const py = this.Oy(pt.y);
+			if (i === 0) {
+				ctx.moveTo(px, py);
+			} else {
+				ctx.lineTo(px, py);
+			}
+
+			// 각 점 표시
+			ctx.beginPath();
+			ctx.arc(px, py, 3, 0, 2 * Math.PI);
+			ctx.fillStyle = "#FF0000";
+			ctx.fill();
+		});
+
+		ctx.stroke();
+	}
+
+	draw() {
+		this.drawAxesAndGrid();
+		this.drawChart();
+	}
+}
